@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Sonnet 4.5 Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            color: #667eea;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #a78bfa;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .metric {
+            font-size: 4em;
+            font-weight: bold;
+            color: #10b981;
+            margin: 10px 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .content-item {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .content-item h4 {
+            color: #a78bfa;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .content-item p {
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        li {
+            font-size: 1.3em;
+            line-height: 2;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .benchmark-bar {
+            margin: 15px 0;
+        }
+
+        .bar-label {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bar-container {
+            background: rgba(255, 255, 255, 0.1);
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-weight: bold;
+            transition: width 1s ease-out;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(102, 126, 234, 0.3);
+            border: 2px solid #667eea;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            font-size: 1.2em;
+            color: #cbd5e1;
+        }
+
+        .comparison-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a78bfa;
+            font-size: 1.2em;
+        }
+
+        .comparison-table td {
+            font-size: 1.1em;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px 5px 5px 0;
+        }
+
+        .price-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .price-box .price {
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            width: 15px;
+            height: 15px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+
+        .timeline-item:after {
+            content: "";
+            position: absolute;
+            left: 17px;
+            top: 15px;
+            width: 2px;
+            height: calc(100% + 20px);
+            background: rgba(102, 126, 234, 0.3);
+        }
+
+        .timeline-item:last-child:after {
+            display: none;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 50px;
+            border-radius: 30px;
+            font-size: 1.3em;
+            text-decoration: none;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .icon-box {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .icon-box .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Claude Sonnet 4.5</h1>
+            <div class="subtitle">The World's Best Coding Model</div>
+            <div class="subtitle">& Most Capable AI Agent System</div>
+            <div style="margin-top: 60px; font-size: 1.3em; color: #cbd5e1;">
+                <p>🚀 Released September 29, 2025 by Anthropic</p>
+                <p style="margin-top: 20px;">⚡ Opus-level intelligence at Sonnet pricing</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Big Picture -->
+        <div class="slide">
+            <h2>The Game-Changing Economics</h2>
+            <div class="metric">5x Better Value</div>
+            <div style="font-size: 1.5em; margin-top: 20px;">
+                <p>Sonnet 4.5 <span class="highlight">outperforms</span> the more expensive Claude Opus 4.1</p>
+                <p style="margin-top: 20px;">At <span class="highlight">1/5th the cost</span></p>
+            </div>
+            <div class="price-box" style="margin-top: 40px;">
+                <div class="price">$3 / $15</div>
+                <div>per million tokens (input/output)</div>
+                <div style="margin-top: 10px; font-size: 0.9em;">Same price as Sonnet 4</div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Four Breakthrough Capabilities -->
+        <div class="slide">
+            <h2>4 Breakthrough Capabilities</h2>
+            <div class="content-grid">
+                <div class="content-item">
+                    <h4>🏆 World's Best Coding</h4>
+                    <p><strong>77.2%</strong> on SWE-bench Verified</p>
+                    <p>82% with high-compute</p>
+                    <p style="margin-top: 10px; color: #10b981;">Error rates dropped from 9% to 0%</p>
+                </div>
+                <div class="content-item">
+                    <h4>⏰ 30+ Hour Autonomy</h4>
+                    <p><strong>4x longer</strong> than previous models</p>
+                    <p>Rebuilt entire Claude.ai in 5.5 hours</p>
+                    <p style="margin-top: 10px; color: #10b981;">3,000+ tool uses maintained</p>
+                </div>
+                <div class="content-item">
+                    <h4>💻 Production Computer Use</h4>
+                    <p><strong>61.4%</strong> on OSWorld</p>
+                    <p>+19.2 points in 4 months</p>
+                    <p style="margin-top: 10px; color: #10b981;">Navigate, click, type like humans</p>
+                </div>
+                <div class="content-item">
+                    <h4>🧠 Superior Reasoning</h4>
+                    <p><strong>73.3%</strong> on AIME math</p>
+                    <p><strong>75.4%</strong> on GPQA science</p>
+                    <p style="margin-top: 10px; color: #10b981;">Excels in finance, law, medicine</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Benchmark Dominance -->
+        <div class="slide">
+            <h2>Benchmark Performance</h2>
+            <div class="benchmark-bar">
+                <div class="bar-label">
+                    <span>SWE-bench Verified (Real-world Coding)</span>
+                    <span class="highlight">77.2% (82.0%)</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 77.2%; background: linear-gradient(90deg, #667eea, #764ba2);">
+                        <span style="margin-right: auto; padding-left: 10px;">Sonnet 4.5</span>
+                    </div>
+                    <div class="bar-fill" style="width: 4.8%; background: linear-gradient(90deg, rgba(102, 126, 234, 0.5), rgba(118, 75, 162, 0.5)); opacity: 0.7; position: absolute; left: 77.2%; top: 0;">
+                    </div>
+                </div>
+                <div style="font-size: 0.9em; color: #a78bfa; margin-top: 5px; margin-left: 10px;">
+                    ** 82.0% with parallel test-time compute
+                </div>
+            </div>
+            <div class="benchmark-bar">
+                <div class="bar-label">
+                    <span>GPT-5 Codex</span>
+                    <span>74.5%</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 74.5%; background: linear-gradient(90deg, #6b7280, #4b5563);"></div>
+                </div>
+            </div>
+            <div class="benchmark-bar">
+                <div class="bar-label">
+                    <span>Gemini 2.5 Pro</span>
+                    <span>67.2%</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 67.2%; background: linear-gradient(90deg, #6b7280, #4b5563);"></div>
+                </div>
+            </div>
+            <div class="benchmark-bar">
+                <div class="bar-label">
+                    <span>OSWorld (Computer Use)</span>
+                    <span class="highlight">61.4%</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 61.4%;">Sonnet 4.5</div>
+                </div>
+            </div>
+            <div class="benchmark-bar">
+                <div class="bar-label">
+                    <span>Claude Opus 4.1</span>
+                    <span>44.4%</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 44.4%; background: linear-gradient(90deg, #6b7280, #4b5563);"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Understanding Parallel Test-Time Compute -->
+        <div class="slide">
+            <h2>How Does Parallel Test-Time Compute Work?</h2>
+            <div style="margin-top: 20px;">
+                <h3 style="color: #a78bfa; margin-bottom: 20px;">Concrete Example: SWE-bench Task</h3>
+                <div class="content-item" style="background: rgba(251, 191, 36, 0.1); border-left-color: #fbbf24; margin-bottom: 20px;">
+                    <h4>📋 Task: "Fix bug where login crashes with special characters"</h4>
+                </div>
+                
+                <div class="two-column" style="gap: 20px;">
+                    <div>
+                        <div class="content-item" style="background: rgba(102, 126, 234, 0.15);">
+                            <h4>Standard Approach (77.2%)</h4>
+                            <div style="margin-top: 15px; font-size: 1.1em; line-height: 1.8;">
+                                <p>1️⃣ Generate <strong>one solution</strong></p>
+                                <p>2️⃣ Submit that solution</p>
+                                <p>3️⃣ Done ✓</p>
+                            </div>
+                            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                                <p style="font-size: 0.95em; color: #cbd5e1;">
+                                    <strong>Result:</strong> Single attempt, might work or might miss edge cases
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="content-item" style="background: rgba(16, 185, 129, 0.15); border-left-color: #10b981;">
+                            <h4>Parallel Test-Time (82.0%)</h4>
+                            <div style="margin-top: 15px; font-size: 1.1em; line-height: 1.8;">
+                                <p>1️⃣ Generate <strong>10 parallel solutions</strong></p>
+                                <p>2️⃣ Test all against regression suite</p>
+                                <p>3️⃣ Keep only solutions that pass ✅</p>
+                                <p>4️⃣ Score remaining candidates</p>
+                                <p>5️⃣ Select best solution 🏆</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Parallel Test-Time Compute - Detailed Example -->
+        <div class="slide">
+            <h2>Step-by-Step: 10 Parallel Solutions</h2>
+            <div style="margin-top: 20px; font-size: 1.05em;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div style="background: rgba(16, 185, 129, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #10b981;">
+                        <strong>Solution A:</strong> Input sanitization
+                        <div style="font-size: 0.9em; color: #10b981; margin-top: 5px;">✅ Passes tests → Score: 8.5/10</div>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #ef4444;">
+                        <strong>Solution B:</strong> Character encoding fix
+                        <div style="font-size: 0.9em; color: #ef4444; margin-top: 5px;">❌ Breaks login test</div>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #ef4444;">
+                        <strong>Solution C:</strong> Regex validation
+                        <div style="font-size: 0.9em; color: #ef4444; margin-top: 5px;">❌ Breaks password reset</div>
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #10b981;">
+                        <strong>Solution D:</strong> UTF-8 encoding
+                        <div style="font-size: 0.9em; color: #10b981; margin-top: 5px;">✅ Passes tests → Score: 7.2/10</div>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #ef4444;">
+                        <strong>Solution E:</strong> HTML escaping
+                        <div style="font-size: 0.9em; color: #ef4444; margin-top: 5px;">❌ Breaks API calls</div>
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #10b981;">
+                        <strong>Solution F:</strong> String normalization
+                        <div style="font-size: 0.9em; color: #10b981; margin-top: 5px;">✅ Passes tests → Score: 6.8/10</div>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #ef4444;">
+                        <strong>Solution G:</strong> Whitelist approach
+                        <div style="font-size: 0.9em; color: #ef4444; margin-top: 5px;">❌ Too restrictive</div>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #ef4444;">
+                        <strong>Solution H:</strong> Database escaping
+                        <div style="font-size: 0.9em; color: #ef4444; margin-top: 5px;">❌ SQL injection risk</div>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #ef4444;">
+                        <strong>Solution I:</strong> Custom parser
+                        <div style="font-size: 0.9em; color: #ef4444; margin-top: 5px;">❌ Performance issues</div>
+                    </div>
+                    <div style="background: rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 10px; border-left: 3px solid #ef4444;">
+                        <strong>Solution J:</strong> Library replacement
+                        <div style="font-size: 0.9em; color: #ef4444; margin-top: 5px;">❌ Breaking changes</div>
+                    </div>
+                </div>
+                <div class="content-item" style="margin-top: 25px; background: rgba(251, 191, 36, 0.2); border-left-color: #fbbf24;">
+                    <h3 style="color: #fbbf24;">🏆 Final Selection: Solution A (8.5/10)</h3>
+                    <p style="font-size: 1.1em; margin-top: 10px;">Clean input sanitization - efficient, secure, and passes all tests</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Why This Works -->
+        <div class="slide">
+            <h2>Why Parallel Test-Time Compute Works</h2>
+            <div class="content-grid" style="margin-top: 30px;">
+                <div class="content-item">
+                    <h4>🎯 Exploration of Solution Space</h4>
+                    <p>Like taking 10 different routes and picking the fastest, versus just the first route you think of</p>
+                    <p style="margin-top: 10px; color: #10b981;">Different approaches → Better chance of finding optimal solution</p>
+                </div>
+                <div class="content-item">
+                    <h4>🎲 Stochastic Nature of LLMs</h4>
+                    <p>Same prompt can produce different outputs due to randomness (temperature, sampling)</p>
+                    <p style="margin-top: 10px; color: #10b981;">Some variations lead to better reasoning chains</p>
+                </div>
+                <div class="content-item">
+                    <h4>✅ Self-Correction Through Validation</h4>
+                    <p>Automatic testing catches problematic solutions before human review</p>
+                    <p style="margin-top: 10px; color: #10b981;">Only keep solutions that don't break anything</p>
+                </div>
+                <div class="content-item">
+                    <h4>🤝 Ensemble Effect</h4>
+                    <p>Combining multiple attempts yields better results than single attempt</p>
+                    <p style="margin-top: 10px; color: #10b981;">Like ensemble learning in machine learning</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <div class="price-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <p style="font-size: 1.2em; margin-bottom: 10px;">Cost-Performance Tradeoff</p>
+                    <p style="font-size: 1.5em;"><strong>77.2%:</strong> 1x cost (single inference)</p>
+                    <p style="font-size: 1.5em; margin-top: 10px;"><strong>82.0%:</strong> ~10x cost (parallel inference + scoring)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Real-World Customer Impact -->
+        <div class="slide">
+            <h2>Real-World Customer Impact</h2>
+            <div style="margin-top: 30px;">
+                <div class="content-item" style="margin-bottom: 20px;">
+                    <h4>Windsurf (Code Editor)</h4>
+                    <p class="metric" style="font-size: 3em;">0%</p>
+                    <p>Error rate (down from 9% on Sonnet 4)</p>
+                </div>
+                <div class="content-item" style="margin-bottom: 20px;">
+                    <h4>Hai Security</h4>
+                    <p class="metric" style="font-size: 3em;">44%</p>
+                    <p>Faster vulnerability intake + 25% accuracy improvement</p>
+                </div>
+                <div class="content-item">
+                    <h4>Devin (AI Software Engineer)</h4>
+                    <p class="metric" style="font-size: 3em;">18%</p>
+                    <p>Planning improvement + 12% end-to-end eval boost</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Technical Architecture -->
+        <div class="slide">
+            <h2>Technical Specifications</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Core Specs</h3>
+                    <ul>
+                        <li><strong>Context:</strong> 200K tokens (~500 pages)</li>
+                        <li><strong>Output:</strong> Up to 64K tokens</li>
+                        <li><strong>Knowledge:</strong> March 1, 2025 cutoff</li>
+                        <li><strong>Thinking:</strong> 64K-128K reasoning tokens</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>API Identifiers</h3>
+                    <ul>
+                        <li><strong>API:</strong> claude-sonnet-4-5-20250929</li>
+                        <li><strong>Bedrock:</strong> anthropic.claude-sonnet-4-5...</li>
+                        <li><strong>Vertex:</strong> claude-sonnet-4-5@20250929</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Key Technologies -->
+        <div class="slide">
+            <h2>Key Technologies Explained</h2>
+            <div class="content-grid">
+                <div class="icon-box">
+                    <div class="icon">🔌</div>
+                    <h4>Model Context Protocol</h4>
+                    <p>Universal standard for AI to connect to any data source—like USB for AI</p>
+                </div>
+                <div class="icon-box">
+                    <div class="icon">💾</div>
+                    <h4>Memory Tool</h4>
+                    <p>Persistent storage outside context window—AI that truly remembers</p>
+                </div>
+                <div class="icon-box">
+                    <div class="icon">✂️</div>
+                    <h4>Context Editing</h4>
+                    <p>Automatic cleanup of old history—keeps conversations focused</p>
+                </div>
+                <div class="icon-box">
+                    <div class="icon">🤔</div>
+                    <h4>Extended Thinking</h4>
+                    <p>Internal reasoning before responding—like human deliberation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Domain Applications -->
+        <div class="slide">
+            <h2>Domain-Specific Excellence</h2>
+            <div style="margin-top: 20px;">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div>
+                            <h4>💻 Software Development</h4>
+                            <p>Full-stack development, autonomous refactoring, codebase analysis</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div>
+                            <h4>🔒 Cybersecurity</h4>
+                            <p>Automated vulnerability patching, red teaming, proactive defense</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div>
+                            <h4>💰 Finance</h4>
+                            <p>Investment-grade analysis, risk modeling, compliance monitoring</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div>
+                            <h4>⚖️ Legal</h4>
+                            <p>Litigation analysis, legal research, opinion drafting</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div>
+                            <h4>📊 Research & Analysis</h4>
+                            <p>Multi-source synthesis, professional documents, deep insights</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Safety & Alignment -->
+        <div class="slide">
+            <h2>Industry-Leading Safety</h2>
+            <div class="metric">~60%</div>
+            <p style="font-size: 1.5em; text-align: center; margin-bottom: 40px;">Improvement on alignment metrics</p>
+            <div class="content-grid">
+                <div class="content-item">
+                    <h4>Reduced Harmful Behaviors</h4>
+                    <ul style="font-size: 1em;">
+                        <li>Less sycophancy</li>
+                        <li>Less deception</li>
+                        <li>Less power-seeking</li>
+                    </ul>
+                </div>
+                <div class="content-item">
+                    <h4>Enhanced Defenses</h4>
+                    <ul style="font-size: 1em;">
+                        <li>65% less prompt injection</li>
+                        <li>ASL-3 safety framework</li>
+                        <li>99.29% harmless responses</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px; font-size: 1.3em;">
+                <p><span class="highlight">"The most aligned frontier model"</span> Anthropic has released</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Ecosystem & Tools -->
+        <div class="slide">
+            <h2>Complete Ecosystem</h2>
+            <div class="two-column">
+                <div>
+                    <h3>New Tools Released</h3>
+                    <div class="content-item" style="margin-bottom: 15px;">
+                        <h4>Claude Agent SDK</h4>
+                        <p>Production-grade agent framework</p>
+                    </div>
+                    <div class="content-item" style="margin-bottom: 15px;">
+                        <h4>Claude Code Enhanced</h4>
+                        <p>Checkpoints, VS Code extension</p>
+                    </div>
+                    <div class="content-item">
+                        <h4>API Improvements</h4>
+                        <p>Memory tool, context editing</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Available Everywhere</h3>
+                    <ul>
+                        <li>Claude.ai (web, iOS, Android)</li>
+                        <li>Anthropic API</li>
+                        <li>Amazon Bedrock</li>
+                        <li>Google Cloud Vertex AI</li>
+                        <li>GitHub Copilot</li>
+                        <li>Cursor, Replit, Windsurf</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Model Family Comparison -->
+        <div class="slide">
+            <h2>The Claude 4 Family</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Best For</th>
+                        <th>SWE-bench</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <td><strong>Sonnet 4.5</strong> ⭐</td>
+                        <td>Coding, agents, most tasks</td>
+                        <td><strong>77.2%</strong></td>
+                        <td>$3/$15</td>
+                    </tr>
+                    <tr>
+                        <td>Opus 4.1</td>
+                        <td>Maximum capability</td>
+                        <td>74.5%</td>
+                        <td>$15/$75</td>
+                    </tr>
+                    <tr>
+                        <td>Opus 4</td>
+                        <td>Specialized tasks</td>
+                        <td>72.5%</td>
+                        <td>$15/$75</td>
+                    </tr>
+                    <tr>
+                        <td>Sonnet 4</td>
+                        <td>1M context needs</td>
+                        <td>72.7%</td>
+                        <td>$3/$15</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 30px; font-size: 1.3em;">
+                <p><span class="highlight">Key Insight:</span> Sonnet 4.5 beats Opus 4.1 at 1/5th the cost</p>
+            </div>
+        </div>
+
+        <!-- Slide 12: Cost Optimization -->
+        <div class="slide">
+            <h2>Maximize Your ROI</h2>
+            <div class="content-grid" style="margin-top: 40px;">
+                <div class="content-item">
+                    <h4>💰 Base Pricing</h4>
+                    <p class="metric" style="font-size: 2.5em;">$3/$15</p>
+                    <p>per million tokens</p>
+                    <p style="margin-top: 10px; color: #10b981;">Same as Sonnet 4</p>
+                </div>
+                <div class="content-item">
+                    <h4>📦 Prompt Caching</h4>
+                    <p class="metric" style="font-size: 2.5em;">90%</p>
+                    <p>cost savings</p>
+                    <p style="margin-top: 10px; color: #10b981;">For repeated context</p>
+                </div>
+                <div class="content-item">
+                    <h4>⚡ Batch Processing</h4>
+                    <p class="metric" style="font-size: 2.5em;">50%</p>
+                    <p>cost savings</p>
+                    <p style="margin-top: 10px; color: #10b981;">For non-urgent workloads</p>
+                </div>
+                <div class="content-item">
+                    <h4>✂️ Auto Optimization</h4>
+                    <p class="metric" style="font-size: 2.5em;">Free</p>
+                    <p>tool call clearing</p>
+                    <p style="margin-top: 10px; color: #10b981;">Automatic token reduction</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Migration Guide -->
+        <div class="slide">
+            <h2>Getting Started</h2>
+            <div class="two-column">
+                <div>
+                    <h3>From Sonnet 4</h3>
+                    <ul>
+                        <li>Change model ID</li>
+                        <li>Can't use temp + top_p together</li>
+                        <li>Enable new features</li>
+                        <li>Minimal code changes</li>
+                    </ul>
+                    <div class="tag">✅ Easy Migration</div>
+                </div>
+                <div>
+                    <h3>From Opus 4.1</h3>
+                    <ul>
+                        <li>Better performance</li>
+                        <li>5x cost reduction</li>
+                        <li>Same API structure</li>
+                        <li>Immediate benefits</li>
+                    </ul>
+                    <div class="tag">💰 Save 80% on costs</div>
+                </div>
+            </div>
+            <div style="margin-top: 40px; text-align: center;">
+                <p style="font-size: 1.3em;">API: <code style="background: rgba(102, 126, 234, 0.2); padding: 5px 15px; border-radius: 5px;">claude-sonnet-4-5-20250929</code></p>
+            </div>
+        </div>
+
+        <!-- Slide 14: What This Means for You -->
+        <div class="slide">
+            <h2>Impact by Team</h2>
+            <div style="margin-top: 20px;">
+                <div class="content-item" style="margin-bottom: 20px;">
+                    <h4>👨‍💻 For Engineering Teams</h4>
+                    <p>State-of-the-art coding capabilities, 30+ hour autonomous operation, extended thinking for complex problems</p>
+                </div>
+                <div class="content-item" style="margin-bottom: 20px;">
+                    <h4>💼 For Business Leaders</h4>
+                    <p>Better results at same cost, measurable ROI (0% errors, 44% faster processing), enterprise-ready safety</p>
+                </div>
+                <div class="content-item" style="margin-bottom: 20px;">
+                    <h4>🎨 For Product Teams</h4>
+                    <p>Faster development cycles, new automation possibilities, more intelligent user experiences</p>
+                </div>
+                <div class="content-item">
+                    <h4>🔒 For Security/Compliance</h4>
+                    <p>ASL-3 safety framework, 65% better prompt injection defense, 99.29% harmless responses</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: The Future -->
+        <div class="slide">
+            <h2>Development Velocity</h2>
+            <div class="timeline" style="margin-top: 40px;">
+                <div class="timeline-item">
+                    <div>
+                        <h4>February 2025 - Sonnet 3.7</h4>
+                        <p>First hybrid reasoning model</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div>
+                        <h4>May 2025 - Sonnet 4</h4>
+                        <p>72.7% SWE-bench, 1M context support</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div>
+                        <h4>September 2025 - Sonnet 4.5</h4>
+                        <p>77.2% SWE-bench, world's best coding model</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div>
+                        <h4>Coming Soon</h4>
+                        <p>"Very likely Opus" update - even more capability</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px; font-size: 1.3em;">
+                <p><span class="highlight">Pattern:</span> Every 6 months, models handle ~2x the complexity</p>
+            </div>
+        </div>
+
+        <!-- Slide 16: Call to Action -->
+        <div class="slide">
+            <h2>Ready to Get Started?</h2>
+            <div class="cta-section">
+                <p style="font-size: 1.5em; margin-bottom: 40px;">
+                    Claude Sonnet 4.5 is available <span class="highlight">now</span>
+                </p>
+                <a href="https://www.anthropic.com/news/claude-sonnet-4-5" class="cta-button">Read the Blog Post</a>
+                <a href="https://docs.claude.com" class="cta-button">View Documentation</a>
+                <div style="margin-top: 60px;">
+                    <h3>Quick Links</h3>
+                    <div style="margin-top: 20px;">
+                        <div class="tag">🌐 claude.ai</div>
+                        <div class="tag">📱 iOS & Android Apps</div>
+                        <div class="tag">💻 API Access</div>
+                        <div class="tag">🛠️ Claude Code</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Key Takeaways -->
+        <div class="slide">
+            <h2>Key Takeaways</h2>
+            <div style="margin-top: 40px;">
+                <div class="content-item" style="margin-bottom: 25px; padding: 30px;">
+                    <h3 style="color: #fbbf24;">1. Best-in-Class Performance</h3>
+                    <p style="font-size: 1.2em;">World's best coding model + production-ready computer use</p>
+                </div>
+                <div class="content-item" style="margin-bottom: 25px; padding: 30px;">
+                    <h3 style="color: #10b981;">2. Revolutionary Economics</h3>
+                    <p style="font-size: 1.2em;">Opus-level results at Sonnet pricing = 5x better value</p>
+                </div>
+                <div class="content-item" style="margin-bottom: 25px; padding: 30px;">
+                    <h3 style="color: #667eea;">3. Production Ready</h3>
+                    <p style="font-size: 1.2em;">Real customer results + enterprise safety standards</p>
+                </div>
+                <div class="content-item" style="padding: 30px;">
+                    <h3 style="color: #a78bfa;">4. Complete Ecosystem</h3>
+                    <p style="font-size: 1.2em;">Agent SDK + enhanced tools + broad availability</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Final Slide -->
+        <div class="slide">
+            <h1>The AI Revolution</h1>
+            <h2 style="margin-top: 40px;">Is Already Here</h2>
+            <div style="margin-top: 60px; text-align: center;">
+                <p style="font-size: 1.8em; line-height: 1.6;">
+                    The question isn't <span class="highlight">whether</span> AI will transform your workflows
+                </p>
+                <p style="font-size: 1.8em; line-height: 1.6; margin-top: 20px;">
+                    It's whether you'll adopt the capabilities<br>that make transformation <span class="highlight">possible</span>
+                </p>
+                <div style="margin-top: 80px; font-size: 1.3em; color: #cbd5e1;">
+                    <p>Claude Sonnet 4.5</p>
+                    <p style="margin-top: 10px;">Available Now</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">18</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prev-btn">← Previous</button>
+        <button class="nav-btn" id="next-btn">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const currentSlideElement = document.getElementById('current-slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            currentSlideElement.textContent = currentSlide + 1;
+
+            // Animate bars when showing benchmark slide
+            if (currentSlide === 3) {
+                setTimeout(() => {
+                    document.querySelectorAll('.bar-fill').forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }, 100);
+            }
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+    </script>
+</body>
+</html>
