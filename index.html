@@ -388,12 +388,15 @@
             </div>
         </div>
 
-        <!-- Slide 4: Benchmark Dominance -->
+        <!-- Slide 4: Benchmark Performance - Coding -->
         <div class="slide">
-            <h2>Benchmark Performance</h2>
+            <h2>Coding Benchmark: SWE-bench Verified</h2>
+            <div style="margin-bottom: 20px;">
+                <p style="font-size: 1.2em; color: #cbd5e1;">Measures: Real-world software engineering on GitHub issues</p>
+            </div>
             <div class="benchmark-bar">
                 <div class="bar-label">
-                    <span>SWE-bench Verified (Real-world Coding)</span>
+                    <span>Claude Sonnet 4.5</span>
                     <span class="highlight">77.2% (82.0%)</span>
                 </div>
                 <div class="bar-container">
@@ -418,6 +421,24 @@
             </div>
             <div class="benchmark-bar">
                 <div class="bar-label">
+                    <span>Claude Opus 4.1</span>
+                    <span>74.5%</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 74.5%; background: linear-gradient(90deg, #6b7280, #4b5563);"></div>
+                </div>
+            </div>
+            <div class="benchmark-bar">
+                <div class="bar-label">
+                    <span>Claude Sonnet 4</span>
+                    <span>72.7%</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 72.7%; background: linear-gradient(90deg, #6b7280, #4b5563);"></div>
+                </div>
+            </div>
+            <div class="benchmark-bar">
+                <div class="bar-label">
                     <span>Gemini 2.5 Pro</span>
                     <span>67.2%</span>
                 </div>
@@ -425,13 +446,28 @@
                     <div class="bar-fill" style="width: 67.2%; background: linear-gradient(90deg, #6b7280, #4b5563);"></div>
                 </div>
             </div>
+            <div style="margin-top: 30px; padding: 20px; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                <p style="font-size: 1.1em;"><strong>What is SWE-bench Verified?</strong></p>
+                <p style="margin-top: 10px; line-height: 1.6;">Tests if AI can solve real GitHub issues: understand codebases, find bugs, implement fixes, and ensure nothing breaks.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4b: Benchmark Performance - Computer Use -->
+        <div class="slide">
+            <h2>Computer Use Benchmark: OSWorld</h2>
+            <div style="margin-bottom: 20px;">
+                <p style="font-size: 1.2em; color: #cbd5e1;">Measures: Real-world computer interaction tasks</p>
+            </div>
             <div class="benchmark-bar">
                 <div class="bar-label">
-                    <span>OSWorld (Computer Use)</span>
+                    <span>Claude Sonnet 4.5</span>
                     <span class="highlight">61.4%</span>
                 </div>
                 <div class="bar-container">
-                    <div class="bar-fill" style="width: 61.4%;">Sonnet 4.5</div>
+                    <div class="bar-fill" style="width: 61.4%; background: linear-gradient(90deg, #10b981, #059669);">Sonnet 4.5</div>
+                </div>
+                <div style="font-size: 0.9em; color: #10b981; margin-top: 5px; margin-left: 10px;">
+                    +19.2 percentage points improvement in just 4 months!
                 </div>
             </div>
             <div class="benchmark-bar">
@@ -441,6 +477,165 @@
                 </div>
                 <div class="bar-container">
                     <div class="bar-fill" style="width: 44.4%; background: linear-gradient(90deg, #6b7280, #4b5563);"></div>
+                </div>
+            </div>
+            <div class="benchmark-bar">
+                <div class="bar-label">
+                    <span>Claude Sonnet 4</span>
+                    <span>42.2%</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 42.2%; background: linear-gradient(90deg, #6b7280, #4b5563);"></div>
+                </div>
+            </div>
+            <div style="margin-top: 30px; padding: 20px; background: rgba(16, 185, 129, 0.1); border-radius: 10px;">
+                <p style="font-size: 1.1em;"><strong>What is OSWorld (Computer Use)?</strong></p>
+                <p style="margin-top: 10px; line-height: 1.6;">Tests if AI can control computers like humans: navigate websites, click buttons, fill forms, use spreadsheets, and complete multi-step workflows by viewing screens and taking actions.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4c: What is Computer Use (OSWorld)? -->
+        <div class="slide">
+            <h2>Deep Dive: What is Computer Use?</h2>
+            <div style="margin-top: 30px;">
+                <div class="content-item" style="margin-bottom: 25px; background: rgba(16, 185, 129, 0.15); border-left-color: #10b981;">
+                    <h3 style="color: #10b981;">The Concept</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">
+                        Computer Use means AI can <strong>interact with computers the same way humans do</strong> — by viewing the screen and controlling the mouse and keyboard, rather than using APIs.
+                    </p>
+                </div>
+
+                <div class="two-column" style="gap: 25px;">
+                    <div class="content-item">
+                        <h4>🖥️ What AI Can See</h4>
+                        <ul style="font-size: 1.1em;">
+                            <li>Screen screenshots (visual input)</li>
+                            <li>UI elements (buttons, forms, menus)</li>
+                            <li>Text content on screen</li>
+                            <li>Application states</li>
+                        </ul>
+                    </div>
+                    <div class="content-item">
+                        <h4>🖱️ What AI Can Do</h4>
+                        <ul style="font-size: 1.1em;">
+                            <li>Move mouse cursor (x, y coordinates)</li>
+                            <li>Click buttons</li>
+                            <li>Type text (keyboard input)</li>
+                            <li>Scroll, drag, select</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4d: OSWorld Benchmark Example -->
+        <div class="slide">
+            <h2>OSWorld Benchmark: Concrete Examples</h2>
+            <div style="margin-top: 20px;">
+                <h3 style="color: #10b981; margin-bottom: 25px;">Real Tasks from OSWorld Evaluation</h3>
+                
+                <div class="content-item" style="margin-bottom: 20px; background: rgba(16, 185, 129, 0.1);">
+                    <h4>📊 Example 1: Spreadsheet Task</h4>
+                    <p style="font-size: 1.1em; line-height: 1.8; margin-top: 10px;">
+                        <strong>Task:</strong> "Open LibreOffice Calc, create a sales report with Q1-Q4 data, calculate totals, format as currency, and save as 'Sales_2024.xlsx'"
+                    </p>
+                    <p style="margin-top: 10px; color: #10b981;">
+                        ✅ AI must: Navigate menus, enter data, use formulas, apply formatting, save file
+                    </p>
+                </div>
+
+                <div class="content-item" style="margin-bottom: 20px; background: rgba(16, 185, 129, 0.1);">
+                    <h4>🌐 Example 2: Web Navigation Task</h4>
+                    <p style="font-size: 1.1em; line-height: 1.8; margin-top: 10px;">
+                        <strong>Task:</strong> "Go to Amazon, search for 'wireless mouse', filter by 4+ star ratings, sort by price, and add the cheapest option to cart"
+                    </p>
+                    <p style="margin-top: 10px; color: #10b981;">
+                        ✅ AI must: Open browser, type URL, search, apply filters, click buttons, navigate pages
+                    </p>
+                </div>
+
+                <div class="content-item" style="background: rgba(16, 185, 129, 0.1);">
+                    <h4>📝 Example 3: Multi-App Workflow</h4>
+                    <p style="font-size: 1.1em; line-height: 1.8; margin-top: 10px;">
+                        <strong>Task:</strong> "Read email with invoice attachment, download PDF, extract total amount, enter it into accounting spreadsheet, and send confirmation reply"
+                    </p>
+                    <p style="margin-top: 10px; color: #10b981;">
+                        ✅ AI must: Switch between apps, read content, manipulate files, coordinate multiple steps
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4e: Computer Use vs Traditional API -->
+        <div class="slide">
+            <h2>Computer Use vs Traditional API Access</h2>
+            <div class="two-column" style="margin-top: 40px; gap: 30px;">
+                <div class="content-item" style="background: rgba(239, 68, 68, 0.1); border-left-color: #ef4444;">
+                    <h3 style="color: #ef4444;">❌ Traditional API Approach</h3>
+                    <ul style="font-size: 1.1em; margin-top: 20px;">
+                        <li>Requires custom API for each app</li>
+                        <li>Doesn't work with legacy software</li>
+                        <li>Can't handle visual interfaces</li>
+                        <li>Limited to API capabilities</li>
+                        <li>Breaks when API changes</li>
+                    </ul>
+                    <div style="margin-top: 25px; padding: 15px; background: rgba(239, 68, 68, 0.2); border-radius: 8px;">
+                        <p style="font-size: 1em;"><strong>Example:</strong> Can't use software without API like old desktop apps, internal enterprise tools, or visual design software</p>
+                    </div>
+                </div>
+
+                <div class="content-item" style="background: rgba(16, 185, 129, 0.1); border-left-color: #10b981;">
+                    <h3 style="color: #10b981;">✅ Computer Use Approach</h3>
+                    <ul style="font-size: 1.1em; margin-top: 20px;">
+                        <li>Works with ANY software (if human can use it)</li>
+                        <li>Handles legacy/internal tools</li>
+                        <li>Visual understanding of UI</li>
+                        <li>No integration needed</li>
+                        <li>Future-proof approach</li>
+                    </ul>
+                    <div style="margin-top: 25px; padding: 15px; background: rgba(16, 185, 129, 0.2); border-radius: 8px;">
+                        <p style="font-size: 1em;"><strong>Example:</strong> Can use Excel, Photoshop, legacy ERP systems, custom internal tools — anything with a visual interface</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4f: Why OSWorld 61.4% Matters -->
+        <div class="slide">
+            <h2>Why 61.4% on OSWorld Is Revolutionary</h2>
+            <div style="margin-top: 30px;">
+                <div class="content-item" style="margin-bottom: 25px; background: rgba(251, 191, 36, 0.1); border-left-color: #fbbf24;">
+                    <h3 style="color: #fbbf24;">The Breakthrough</h3>
+                    <p style="font-size: 1.3em; line-height: 1.8; margin-top: 15px;">
+                        For the first time, AI can <strong>reliably complete real-world computer tasks</strong> that require understanding visual interfaces and executing multi-step workflows.
+                    </p>
+                </div>
+
+                <div class="content-grid" style="margin-top: 30px;">
+                    <div class="icon-box" style="background: rgba(16, 185, 129, 0.1);">
+                        <div class="icon" style="color: #10b981;">📈</div>
+                        <h4>Dramatic Progress</h4>
+                        <p style="margin-top: 10px;">42.2% → 61.4% in just 4 months</p>
+                    </div>
+                    <div class="icon-box" style="background: rgba(16, 185, 129, 0.1);">
+                        <div class="icon" style="color: #10b981;">🏆</div>
+                        <h4>Industry Leader</h4>
+                        <p style="margin-top: 10px;">Best computer use model in the world</p>
+                    </div>
+                    <div class="icon-box" style="background: rgba(16, 185, 129, 0.1);">
+                        <div class="icon" style="color: #10b981;">🔧</div>
+                        <h4>Production Ready</h4>
+                        <p style="margin-top: 10px;">Reliable enough for real automation</p>
+                    </div>
+                    <div class="icon-box" style="background: rgba(16, 185, 129, 0.1);">
+                        <div class="icon" style="color: #10b981;">🌐</div>
+                        <h4>Universal Access</h4>
+                        <p style="margin-top: 10px;">Works with any software, no APIs needed</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; text-align: center; font-size: 1.3em;">
+                    <p><span class="highlight">This means:</span> AI agents can now automate tasks across <strong>ANY software</strong>, not just ones with APIs</p>
                 </div>
             </div>
         </div>
